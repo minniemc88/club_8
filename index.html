@@ -15,31 +15,55 @@
         </header>
 
         <div class="bg-amber-50 border-l-4 border-amber-500 p-5 mb-8 rounded-r-lg shadow-xs">
-            <div class="flex items-start">
-                <div class="flex-shrink-0 mt-0.5">
-                    <svg class="h-5 w-5 text-amber-500" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
-                    </svg>
-                </div>
-                <div class="ml-3 w-full">
-                    <h3 class="text-base font-bold text-amber-800 mb-2">⚠️ 選填重要注意事項（請務必詳閱）</h3>
-                    <div class="text-sm text-amber-700 space-y-2 leading-relaxed">
-                        <p class="font-semibold text-red-600 bg-red-50 p-2 rounded border border-red-200">
-                            📢 國一升國二的【校隊成員】和【跨文化學習社】成員不用選填社團。
-                        </p>
-                        <p>1. 社團選填<strong>一學年只選一次</strong>，請同學務必要慎重考慮。</p>
-                        <p>2. 對於<strong>需收取材料費</strong>的社團，請同學務必先<strong>徵詢家長的同意</strong>後再進行選填。</p>
-                        <p>3. 若最後沒選到自己的志願社團或未在時間內選填社團者，則由<strong>學務處統一分配</strong>社團。</p>
-                        <p>4. 每人<strong>只能填寫一次</strong>，且必須至少填滿 <strong>6 個不同的社團志願</strong>，至多可填 13 個。請勿在不同志願中重複選填相同的社團。</p>
-                    </div>
+            <h3 class="text-base font-bold text-amber-800 mb-4 flex items-center gap-2">
+                <svg class="h-5 w-5 text-amber-500 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                </svg>
+                選填重要注意事項（請逐條閱讀並勾選確認）
+            </h3>
+            
+            <div id="precautions-container" class="space-y-3 text-sm">
+                <label class="flex items-start gap-3 bg-white/70 p-3 rounded border border-amber-200 cursor-pointer hover:bg-white transition shadow-2xs">
+                    <input type="checkbox" required class="mt-0.5 h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-slate-300 rounded cursor-pointer flex-shrink-0">
+                    <span class="leading-relaxed font-semibold text-red-700">
+                        📢 國一升國二的【校隊成員】和【跨文化學習社】成員不用選填社團。 <span class="text-red-500 font-bold">*</span>
+                    </span>
+                </label>
 
-                    <div class="mt-5 pt-4 border-t border-amber-200 flex items-center">
-                        <input type="checkbox" id="agree-checkbox" required class="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-slate-300 rounded cursor-pointer">
-                        <label for="agree-checkbox" class="ml-2.5 text-sm font-extrabold text-amber-950 cursor-pointer select-none">
-                            我已詳閱上述所有注意事項，並願自負後果。 <span class="text-red-500">*</span>
-                        </label>
-                    </div>
-                </div>
+                <label class="flex items-start gap-3 bg-white/70 p-3 rounded border border-amber-200 cursor-pointer hover:bg-white transition shadow-2xs">
+                    <input type="checkbox" required class="mt-0.5 h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-slate-300 rounded cursor-pointer flex-shrink-0">
+                    <span class="leading-relaxed text-slate-700">
+                        1. 社團選填<strong>一學年只選一次</strong>，請同學務必要慎重考慮。 <span class="text-red-500 font-bold">*</span>
+                    </span>
+                </label>
+
+                <label class="flex items-start gap-3 bg-white/70 p-3 rounded border border-amber-200 cursor-pointer hover:bg-white transition shadow-2xs">
+                    <input type="checkbox" required class="mt-0.5 h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-slate-300 rounded cursor-pointer flex-shrink-0">
+                    <span class="leading-relaxed text-slate-700">
+                        2. 對於<strong>需收取材料費</strong>的社團，請同學務必先<strong>徵詢家長的同意</strong>後再進行選填。 <span class="text-red-500 font-bold">*</span>
+                    </span>
+                </label>
+
+                <label class="flex items-start gap-3 bg-white/70 p-3 rounded border border-amber-200 cursor-pointer hover:bg-white transition shadow-2xs">
+                    <input type="checkbox" required class="mt-0.5 h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-slate-300 rounded cursor-pointer flex-shrink-0">
+                    <span class="leading-relaxed text-slate-700">
+                        3. 若最後沒選到自己的志願社團或未在時間內選填社團者，則由<strong>學務處統一分配</strong>社團。 <span class="text-red-500 font-bold">*</span>
+                    </span>
+                </label>
+
+                <label class="flex items-start gap-3 bg-white/70 p-3 rounded border border-amber-200 cursor-pointer hover:bg-white transition shadow-2xs">
+                    <input type="checkbox" required class="mt-0.5 h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-slate-300 rounded cursor-pointer flex-shrink-0">
+                    <span class="leading-relaxed text-slate-700">
+                        4. 每人<strong>只能填寫一次</strong>，且必須至少填滿 <strong>6 個不同的社團志願</strong>，至多可填 13 個。請勿在不同志願中重複選填相同的社團。 <span class="text-red-500 font-bold">*</span>
+                    </span>
+                </label>
+
+                <label class="flex items-start gap-3 bg-amber-100/60 p-3 rounded border border-amber-300 cursor-pointer hover:bg-amber-100/90 transition shadow-2xs">
+                    <input type="checkbox" required class="mt-0.5 h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-slate-400 rounded cursor-pointer flex-shrink-0">
+                    <span class="leading-relaxed font-extrabold text-amber-950">
+                        我已確認上述所有規則，了解自身是否具備校隊資格，並願自負本志願表送出後的一切後果。 <span class="text-red-500 font-bold">*</span>
+                    </span>
+                </label>
             </div>
         </div>
 
@@ -74,7 +98,7 @@
                     <div>
                         <label class="block text-xs font-bold text-slate-500 uppercase tracking-wide mb-1">年級 <span class="text-red-500">*</span></label>
                         <select required name="grade" class="w-full bg-slate-100 border border-slate-300 rounded-md p-2.5 focus:outline-none cursor-not-allowed">
-                            <option value="7" selected>七年級 (明年度升八年級)</option>
+                            <option value="7" selected>國一升國二</option>
                         </select>
                     </div>
                     <div>
@@ -99,7 +123,7 @@
                 <p class="text-xs text-slate-400 mb-4">前 6 志願為必填，其餘（第7~13志願）為選填。請確保選填的社團絕不重複。</p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="volunteer-container">
-                    </div>
+                </div>
             </div>
 
             <div class="pt-4 border-t border-slate-100 flex justify-end">
@@ -128,7 +152,7 @@
             { id: 7, name: "動手玩創意社", teacher: "陳惠敏", desc: "動手縫製實作品，透過設計圖像、裁剪與實作縫製，激發想像創造力，培養美學教育融入生活，達到惜物愛物之美德。", notes: "1. 材料費約 450 元<br>2. 需自備針、線、剪刀" },
             { id: 8, name: "桌球社", teacher: "吳貞萱", desc: "準備好迎接熱血對決了嗎？加入桌球社，學習各種酷炫球技，挑戰速度與反應極限！在一次次精彩的來回攻防中，不但能強健體魄，還能結交志同道合的朋友。拿起球拍，讓我們一起享受桌球的魅力！", notes: "材料費約 50 元" },
             { id: 9, name: "心靈電影欣賞社", teacher: "謝正忠", desc: "歡迎加入心靈電影欣賞社，一起用電影探索情感、理解生命、觀察社會！我們每次社課會挑選一部富有意義的影片，主題可能是親情、友情、愛與失落，也可能是推理解謎或真實社會議題。透過觀影與討論，學習同理、思考價值、表達想法。", notes: "" },
-            { id: 10, name: "走路有豐社", teacher: "李吟子、李勤道", desc: "你認識自己嗎？課程中透過體驗活動與互動，促進師生關係，鼓勵學生們在課室中有更多表達機會。給自己一個生命改變和成長的機會吧！", notes: "" },
+            { id: 10, name: "走路有豐社", teacher: "李吟子<br>李勤道", desc: "你認識自己嗎？課程中透過體驗活動與互動，促進師生關係，鼓勵學生們在課室中有更多表達機會。給自己一個生命改變和成長的機會吧！", notes: "" },
             { id: 11, name: "木工手作社", teacher: "未填", desc: "介紹各式各樣的木工加工工具與設備，讓學生除了上課所學習的工具外，對於其他工具也能夠有更多的認識，並且利用工具將自己設計的設計理念進行實現。", notes: "教材費約 700 元" },
             { id: 12, name: "法律達人社", teacher: "姚甫岳", desc: "透過法律知識的獲取，讓學生了解生活各面向所需的各項法律常識，避免因無知而觸犯法律，進而提升知法與守法的能力。", notes: "教材費約 150 元" },
             { id: 13, name: "大橋生態探究社", teacher: "薛照平", desc: "以觀察與研究校園生態、外來種清除及病媒蚊防治為主，透過分組探究、飼養觀察與實作活動。<strong>※ 因活動可能接觸昆蟲及小型生物，害怕蟑螂、蜘蛛等動物的同學請審慎選填。</strong>", notes: "" }
@@ -139,12 +163,18 @@
         clubsData.forEach(club => {
             const row = document.createElement('tr');
             row.className = "hover:bg-slate-50 transition";
+            
+            const notesText = club.notes || '無';
+            const notesClass = club.notes 
+                ? 'text-red-600 font-extrabold bg-red-50/60' 
+                : 'text-slate-400 font-normal';
+
             row.innerHTML = `
-                <td class="p-4 text-center font-medium border-r border-slate-100 bg-slate-50/50">${club.id}</td>
-                <td class="p-4 font-bold text-indigo-900">${club.name}</td>
-                <td class="p-4 text-slate-700 font-medium">${club.teacher}</td>
-                <td class="p-4 text-xs leading-relaxed text-slate-600">${club.desc}</td>
-                <td class="p-4 text-xs font-medium text-emerald-700 bg-emerald-50/30">${club.notes || '無特別費用'}</td>
+                <td class="p-4 text-center font-medium border-r border-slate-100 bg-slate-50/50 text-sm text-slate-600">${club.id}</td>
+                <td class="p-4 font-bold text-indigo-900 text-sm">${club.name}</td>
+                <td class="p-4 text-black font-semibold text-sm leading-tight">${club.teacher}</td>
+                <td class="p-4 text-sm leading-relaxed text-black">${club.desc}</td>
+                <td class="p-4 text-sm ${notesClass}">${notesText}</td>
             `;
             tableBody.appendChild(row);
         });
@@ -177,9 +207,13 @@
         function handleSubmit(event) {
             event.preventDefault();
             
-            if (!document.getElementById('agree-checkbox').checked) {
-                alert("❌ 請先勾選「我已詳閱注意事項並自負後果」核取方塊！");
-                return;
+            const requiredCheckboxes = document.querySelectorAll('#precautions-container input[type="checkbox"]');
+            for (let cb of requiredCheckboxes) {
+                if (!cb.checked) {
+                    alert("❌ 錯誤：請務必逐條閱讀，並勾選「所有注意事項」核取方塊才能送出志願！");
+                    cb.focus();
+                    return;
+                }
             }
 
             const btn = document.getElementById('submit-btn');
@@ -207,18 +241,15 @@
                 return;
             }
 
-            // 準備打包要上傳雲端試算表的資料
             const payload = {
                 timestamp: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }),
                 info: studentInfo,
                 volunteers: selectedVolunteers
             };
 
-            // 停用按鈕，防止學生重覆連續點擊
             btn.disabled = true;
             btn.innerText = "正在傳送志願至雲端...";
 
-            // 發送到你的 Google Apps Script 
             fetch(GOOGLE_SCRIPT_URL, {
                 method: 'POST',
                 mode: 'no-cors',
@@ -227,8 +258,8 @@
             })
             .then(() => {
                 alert(`🎉 送出成功！\n---------------------\n【${studentInfo.class}班 ${studentInfo.seat}號 ${studentInfo.name}】同學的志願已成功寫入雲端試算表。`);
-                event.target.reset(); // 清空表單
-                document.getElementById('agree-checkbox').checked = false;
+                event.target.reset(); 
+                requiredCheckboxes.forEach(cb => cb.checked = false);
             })
             .catch(err => {
                 alert("❌ 傳送失敗，請檢查網路連線或通知學務處協助。");
