@@ -158,17 +158,13 @@
             { id: 13, name: "大橋生態探究社", teacher: "薛照平", desc: "以觀察與研究校園生態、外來種清除及病媒蚊防治為主，透過分組探究、飼養觀察與實作活動。<strong>※ 因活動可能接觸昆蟲及小型生物，害怕蟑螂、蜘蛛等動物的同學請審慎選填。</strong>", notes: "" }
         ];
 
-        // 1. 初始化社團表格
+        // 1. 初始化社團表格 (保持不變)
         const tableBody = document.getElementById('club-table-body');
         clubsData.forEach(club => {
             const row = document.createElement('tr');
             row.className = "hover:bg-slate-50 transition";
-            
             const notesText = club.notes || '無';
-            const notesClass = club.notes 
-                ? 'text-red-600 font-extrabold bg-red-50/60' 
-                : 'text-slate-400 font-normal';
-
+            const notesClass = club.notes ? 'text-red-600 font-extrabold bg-red-50/60' : 'text-slate-400 font-normal';
             row.innerHTML = `
                 <td class="p-4 text-center font-medium border-r border-slate-100 bg-slate-50/50 text-sm text-slate-600">${club.id}</td>
                 <td class="p-4 font-bold text-indigo-900 text-sm">${club.name}</td>
@@ -179,8 +175,33 @@
             tableBody.appendChild(row);
         });
 
-        // 2. 初始化 13 個志願選單
+        // 2. 初始化 13 個志願選單 (新增更新邏輯)
         const container = document.getElementById('volunteer-container');
+        const selects = []; // 用來儲存所有 select 元素
+
+        function updateSelectOptions() {
+            // 獲取當前所有被選中的社團名稱 (排除空值)
+            const selectedValues = selects.map(s => s.value).filter(v => v !== "");
+            
+            // 更新每個選單
+            selects.forEach(currentSelect => {
+                const currentValue = currentSelect.value;
+                // 保留目前的選項，清空其他
+                currentSelect.innerHTML = `<option value="">-- 請選擇社團 --</option>`;
+                
+                clubsData.forEach(club => {
+                    // 如果這個社團沒被選過，或者就是自己目前選的，就顯示在清單中
+                    if (!selectedValues.includes(club.name) || club.name === currentValue) {
+                        const opt = document.createElement('option');
+                        opt.value = club.name;
+                        opt.textContent = `${club.id}. ${club.name}`;
+                        if (club.name === currentValue) opt.selected = true;
+                        currentSelect.appendChild(opt);
+                    }
+                });
+            });
+        }
+
         for (let i = 1; i <= 13; i++) {
             const div = document.createElement('div');
             div.className = "flex items-center space-x-3 bg-slate-50 p-3 rounded-lg border border-slate-200 shadow-xs";
@@ -189,33 +210,33 @@
             const requiredBadge = isRequired ? '<span class="text-red-500 font-bold">*</span>' : '<span class="text-slate-400 text-xs">(選填)</span>';
             const requiredAttr = isRequired ? 'required' : '';
 
-            let optionsHtml = `<option value="">-- 請選擇社團 --</option>`;
-            clubsData.forEach(club => {
-                optionsHtml += `<option value="${club.name}">${club.id}. ${club.name}</option>`;
-            });
+            const select = document.createElement('select');
+            select.name = `volunteer_${i}`;
+            if (isRequired) select.required = true;
+            select.className = "w-full bg-white border border-slate-300 rounded-md p-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none";
+            
+            // 加入監聽事件
+            select.addEventListener('change', updateSelectOptions);
+            selects.push(select);
 
-            div.innerHTML = `
-                <label class="w-24 text-sm font-bold text-slate-700 flex-shrink-0">第 ${i} 志願 ${requiredBadge}</label>
-                <select name="volunteer_${i}" ${requiredAttr} class="w-full bg-white border border-slate-300 rounded-md p-2 text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-                    ${optionsHtml}
-                </select>
-            `;
+            div.innerHTML = `<label class="w-24 text-sm font-bold text-slate-700 flex-shrink-0">第 ${i} 志願 ${requiredBadge}</label>`;
+            div.appendChild(select);
             container.appendChild(div);
         }
+        updateSelectOptions(); // 初始載入時填入選項
 
-        // 3. 表單提交與雲端資料傳送
+        // 3. 表單提交 (保持不變，但建議加入防呆)
         function handleSubmit(event) {
             event.preventDefault();
-            
             const requiredCheckboxes = document.querySelectorAll('#precautions-container input[type="checkbox"]');
             for (let cb of requiredCheckboxes) {
                 if (!cb.checked) {
-                    alert("❌ 錯誤：請務必逐條閱讀，並勾選「所有注意事項」核取方塊才能送出志願！");
+                    alert("❌ 錯誤：請務必逐條閱讀，並勾選「所有注意事項」核取方塊！");
                     cb.focus();
                     return;
                 }
             }
-
+            // ... (其餘傳送邏輯保持不變)
             const btn = document.getElementById('submit-btn');
             const formData = new FormData(event.target);
             const studentInfo = {
@@ -224,51 +245,35 @@
                 seat: formData.get('seat'),
                 name: formData.get('name').trim()
             };
-
             const selectedVolunteers = [];
             for (let i = 1; i <= 13; i++) {
                 const val = formData.get(`volunteer_${i}`);
                 if (val) selectedVolunteers.push(val);
             }
-
             if (selectedVolunteers.length < 6) {
                 alert("❌ 錯誤：您至少必須填滿 6 個不同的社團志願！");
                 return;
             }
-            const uniqueVolunteers = new Set(selectedVolunteers);
-            if (uniqueVolunteers.size !== selectedVolunteers.length) {
-                alert("❌ 錯誤：您的志願中有「重複選填」的社團，請重新檢查！");
-                return;
-            }
-
+            
             const payload = {
                 timestamp: new Date().toLocaleString('zh-TW', { timeZone: 'Asia/Taipei' }),
                 info: studentInfo,
                 volunteers: selectedVolunteers
             };
-
             btn.disabled = true;
             btn.innerText = "正在傳送志願至雲端...";
-
             fetch(GOOGLE_SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
+                method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             })
             .then(() => {
-                alert(`🎉 送出成功！\n---------------------\n【${studentInfo.class}班 ${studentInfo.seat}號 ${studentInfo.name}】同學的志願已成功寫入雲端試算表。`);
+                alert(`🎉 送出成功！\n【${studentInfo.class}班 ${studentInfo.seat}號 ${studentInfo.name}】同學的志願已記錄。`);
                 event.target.reset(); 
                 requiredCheckboxes.forEach(cb => cb.checked = false);
+                updateSelectOptions(); // 重置選項
             })
-            .catch(err => {
-                alert("❌ 傳送失敗，請檢查網路連線或通知學務處協助。");
-                console.error(err);
-            })
-            .finally(() => {
-                btn.disabled = false;
-                btn.innerText = "確認送出志願表";
-            });
+            .catch(err => { alert("❌ 傳送失敗，請通知學務處。"); })
+            .finally(() => { btn.disabled = false; btn.innerText = "確認送出志願表"; });
         }
     </script>
 </body>
